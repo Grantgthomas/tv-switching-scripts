@@ -10,15 +10,17 @@ import win32gui
 
 def switch_display_1():
     if check_disp() == 2:
-        for x in range(2):
-            pyautogui.hotkey('win', 'p')
-            time.sleep(.1)
-        pyautogui.hotkey('enter')
-        set_resolution(2, 2560, 1440)
-        time.sleep(.1)
-        pyautogui.hotkey('escsape')
-        time.sleep(.1)
+        #for x in range(2):
+        #    pyautogui.hotkey('win', 'p')
+        #    time.sleep(.1)
+        #pyautogui.hotkey('enter')
         monitor_script()
+        #set_resolution(2, 2560, 1440)
+
+        #time.sleep(.1)
+        #pyautogui.hotkey('escsape')
+        #time.sleep(.1)
+        
     else:
         pass
 
@@ -26,13 +28,16 @@ def switch_display_1():
 
 def switch_display_2():
     if check_disp() == 1:
-        for x in range(4):
-            pyautogui.hotkey('win', 'p')
-            time.sleep(.1)
-        pyautogui.hotkey('enter')
-        set_resolution(2, 3840, 2160)
-        time.sleep(.1)
+        #for x in range(4):
+        #    pyautogui.hotkey('win', 'p')
+        #    time.sleep(.1)
+        #pyautogui.hotkey('enter')
         tv_script()
+        #set_resolution(2, 3840, 2160)
+        #stop_process("Rainmeter")
+        #stop_process("wallpaper32")
+        time.sleep(.1)
+        
         #stop_process('Rainmeter')
         #stop_process('wallpaper32')
         #time.sleep(.1)
@@ -53,6 +58,9 @@ def stop_process(process_name):
     # Use the subprocess module to run the command to stop the specified process
     subprocess.call(f'taskkill /f /im {process_name}.exe', shell=True)
 
+def start_process(process_name):
+    subprocess.run('{}.exe'.format(process_name))
+
 def check_procs(process_name):
     for proc in psutil.process_iter(['name']):
         if proc.info['name'] == process_name:
@@ -70,7 +78,10 @@ def check_disp():
     return 0
 
 def tv_script():
+    subprocess.call('DisplaySwitch.exe /external')
     subprocess.call('TVMode.bat')
+    
 
 def monitor_script():
+    subprocess.call('DisplaySwitch.exe /internal')
     subprocess.call('MonitorMode.bat')
